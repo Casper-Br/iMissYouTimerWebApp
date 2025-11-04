@@ -1,3 +1,5 @@
+# This is my final project for Harvard's CS50x course, an introduction to computer science.
+
 # iMissYouTimer
 #### Description:
 My project is a timer in which a user can submit an amount of time in days hours minutes seconds format.
