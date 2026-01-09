@@ -25,11 +25,7 @@ def require_auth():
         return authenticate()
 
 # SQLite database setup
-<<<<<<< HEAD
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///timer.db')
-=======
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or 'sqlite:///timer.db'
->>>>>>> d5dc9d1fbef047778213a1af693d672a225acd1e
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -99,12 +95,6 @@ def get_remaining_time():
 def index():
     return app.send_static_file('index.html')
 
-<<<<<<< HEAD
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5001))  # default to 5001 locally
     app.run(debug=True, host="0.0.0.0", port=port)
-=======
-# Remove when deploying.
-if __name__ == "__main__":
-    app.run(debug=True)
->>>>>>> d5dc9d1fbef047778213a1af693d672a225acd1e
