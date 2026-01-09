@@ -67,7 +67,8 @@ button {
     }
 
     .heart .content {
-        margin-top: -30px;
+        margin-top: -150px;
+        gap: 10px;
     }
 
     #timerDisplay {
