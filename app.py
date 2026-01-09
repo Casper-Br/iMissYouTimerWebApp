@@ -6,9 +6,7 @@ import os
 app = Flask(__name__, static_folder='static', static_url_path='')
 
 # SQLite database setup
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///timer.db'
-# USE THIS WHEN DEPLOYING app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or 'sqlite:///timer.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -77,3 +75,7 @@ def get_remaining_time():
 @app.route('/')
 def index():
     return app.send_static_file('index.html')
+
+# Remove when deploying.
+if __name__ == "__main__":
+    app.run(debug=True)
