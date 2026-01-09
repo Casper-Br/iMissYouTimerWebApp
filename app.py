@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 import os
 
 app = Flask(__name__, static_folder='static', static_url_path='')
+
 # Password protection
 USERS = {
     "us": os.environ.get("MY_PASSWORD", "mypassword1")
@@ -25,8 +26,13 @@ def require_auth():
         return authenticate()
 
 # SQLite database setup
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or 'sqlite:///timer.db'
+db_url = os.environ.get('DATABASE_URL')
+if db_url and db_url.startswith("postgres://"):
+    db_url = db_url.replace("postgres://", "postgresql+psycopg://", 1)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = db_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 db = SQLAlchemy(app)
 
 # Timer model
