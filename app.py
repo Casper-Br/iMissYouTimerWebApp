@@ -74,6 +74,3 @@ def get_remaining_time():
 @app.route('/')
 def index():
     return app.send_static_file('index.html')
-
-if __name__ == '__main__':
-    app.run(debug=True)
