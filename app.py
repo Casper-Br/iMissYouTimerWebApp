@@ -27,8 +27,8 @@ def require_auth():
 
 # SQLite database setup
 db_url = os.environ.get('DATABASE_URL') or 'sqlite:///timer.db'
-if db_url and db_url.startswith("postgres://"):
-    db_url = db_url.replace("postgres://", "postgresql+psycopg://", 1)
+if db_url and db_url.startswith("postgresql://"):
+    db_url = db_url.replace("postgresql://", "postgresql+psycopg://", 1)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = db_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
