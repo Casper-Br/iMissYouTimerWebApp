@@ -1,14 +1,31 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, Response, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, timezone
 import os
 
 app = Flask(__name__, static_folder='static', static_url_path='')
+# Password protection
+USERS = {
+    "us": os.environ.get("MY_PASSWORD", "mypassword1")
+}
+
+def check_auth(username, password):
+    return USERS.get(username) == password
+
+def authenticate():
+    return Response(
+        'Login required', 401,
+        {'WWW-Authenticate': 'Basic realm="Timer Login"'}
+    )
+
+@app.before_request
+def require_auth():
+    auth = request.authorization
+    if not auth or not check_auth(auth.username, auth.password):
+        return authenticate()
 
 # SQLite database setup
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///timer.db'
-# USE THIS WHEN DEPLOYING app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///timer.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -77,3 +94,7 @@ def get_remaining_time():
 @app.route('/')
 def index():
     return app.send_static_file('index.html')
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5001))  # default to 5001 locally
+    app.run(debug=True, host="0.0.0.0", port=port)
