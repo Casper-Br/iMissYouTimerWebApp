@@ -48,7 +48,7 @@ You can change the password by either changing the default in app.py or setting 
 
 ## Why I made this
 
-I initially created iMissYou Timer as a final project for my HarvardX CS50x course. Later I wanted to continur developing it and actually deploy it. My goal was to learn full-stack development while building something practical that I could actually use once it was finished.
+I initially created iMissYou Timer as a final project for my HarvardX CS50x course. Later I wanted to continue developing it and actually deploy it. My goal was to learn full-stack development while building something practical that I could actually use once it was finished.
 Through this project, I learned a lot about building web applications from end to end:
 - Handling HTTP requests with Flask
 - Connecting the frontend and backend so they communicate properly
