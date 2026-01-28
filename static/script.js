@@ -24,7 +24,7 @@ function startLocalCountdown(seconds) {
         remaining--;
         if (remaining < 0) {
             clearInterval(timerInterval);
-            document.getElementById('timerDisplay').textContent = "Time's up!";
+            document.getElementById('timerDisplay').textContent = "Don't worry! I'm here.";
             return;
         }
         document.getElementById('timerDisplay').textContent = formatTime(remaining);}, 1000);
